@@ -1,0 +1,37 @@
+/**
+ * @file
+ * @brief Monster tentacle-related code.
+**/
+
+#pragma once
+
+#include "actor.h"
+#include "coord-def.h"
+#include "monster-type.h"
+
+class monster;
+
+bool mons_is_tentacle_head(monster_type mc);
+bool mons_is_child_tentacle(monster_type mc);
+bool mons_is_child_tentacle_segment(monster_type mc);
+bool mons_is_solo_tentacle(monster_type mc);
+bool mons_is_tentacle(monster_type mc);
+bool mons_is_tentacle_segment(monster_type mc);
+bool mons_is_tentacle_or_tentacle_segment(monster_type mc);
+
+monster_type mons_tentacle_parent_type(const monster* mons);
+monster_type mons_tentacle_child_type(const monster* mons);
+
+bool mons_tentacle_adjacent(const monster* parent, const monster* child);
+monster& get_tentacle_head(const monster& mon);
+
+void move_solo_tentacle(monster* tentacle);
+void move_child_tentacles(monster * kraken);
+bool destroy_tentacles(monster* head);
+bool destroy_tentacle(monster* head);
+
+int mons_available_tentacles(monster* head);
+void mons_create_tentacles(monster* head);
+
+coord_def tree_anchor_pos(const coord_def vine_pos);
+void reanchor_or_destroy_vines(const coord_def tree_pos, actor *agent);

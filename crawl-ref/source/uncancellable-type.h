@@ -1,0 +1,16 @@
+#pragma once
+
+enum uncancellable_type
+{
+    UNC_DRAW_THREE,
+    UNC_STACK_FIVE,
+    UNC_POTION_PETITION,
+    UNC_CALL_MERCHANT,
+
+    UNC_ENCHANT_WEAPON,
+    UNC_ENCHANT_ARMOUR,
+    UNC_BRAND_WEAPON,
+    UNC_AMNESIA,
+    UNC_BLINKING,
+    UNC_IDENTIFY,
+};

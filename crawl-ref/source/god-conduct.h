@@ -1,0 +1,58 @@
+/**
+ * @file
+ * @brief Stuff related to conducts.
+**/
+
+#pragma once
+
+#include "beam-type.h"
+#include "conduct-type.h"
+#include "forbidden-act-type.h"
+#include "god-type.h"
+#include "kill-method-type.h"
+
+// Calls did_god_conduct() when the object goes out of scope.
+struct god_conduct_trigger
+{
+    conduct_type conduct;
+    int pgain;
+    bool known;
+    unique_ptr<monster> victim;
+
+    god_conduct_trigger(conduct_type c = NUM_CONDUCTS,
+                        int pg = 0,
+                        bool kn = true,
+                        const monster* vict = nullptr);
+
+    void set(conduct_type c = NUM_CONDUCTS,
+             int pg = 0,
+             bool kn = true,
+             const monster* vict = nullptr);
+
+    ~god_conduct_trigger();
+};
+
+void did_kill_conduct(conduct_type thing_done, const monster &victim);
+void did_god_conduct(conduct_type thing_done, int level, bool known = true,
+                     const monster* victim = nullptr);
+void set_attack_conducts(god_conduct_trigger conduct[3], const monster &mon,
+                         bool known = true);
+void did_hurt_monster(const monster &victim, int damage_done,
+                      beam_type flavour, kill_method_type kill_type);
+
+void god_conduct_turn_start();
+void trigger_exploration_conducts();
+
+bool god_forbids_spell(spell_type spell, god_type god);
+bool god_hates_spellcasting(god_type god);
+bool god_forbids_training_magic(god_type god);
+
+forbidden_act_type god_forbids_item_handling(const item_def& item);
+forbidden_act_type god_forbids_item_handling(const item_def& item,
+                                             god_type god, bool include_temp = true);
+void god_forgive_inadvertent_act(forbidden_act_type act);
+
+string get_god_likes(god_type which_god);
+string get_god_dislikes(god_type which_god);
+string get_god_forbids(god_type which_god);
+string conduct_description(conduct_type conduct);
